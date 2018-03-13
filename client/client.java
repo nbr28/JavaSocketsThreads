@@ -32,14 +32,12 @@ public class client {
 			System.out.println("Connected to " + clientSocket.getInetAddress().getHostName());
 			
 			oisFromServer = new ObjectInputStream(clientSocket.getInputStream());
-			oosToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			
 			oosToServer.writeObject( username ); 
             oosToServer.flush();
 			do {
 				System.out.print("Enter a command (0, 1 or 2): ");
 				userSelction = scanner.nextInt();
-				
 				
 			} while (userSelction != 0);
 

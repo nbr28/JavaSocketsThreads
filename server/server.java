@@ -51,15 +51,16 @@ public class server {
 				int m = 1000;
 				while(true)
 				{
-					System.out.println(oisFromClient.readObject());
-					oosToClient.flush();
+					String string=(String)oisFromClient.readObject();
+					System.out.println(string);
+					
 				}
 				
 				//oosToClient.writeObject(bank.searchByAccountNumber("A1234"));
 				
 
 				// display the result to the screen of the server
-				System.out.println("\t******* send the object to the CLIENT");
+				//System.out.println("\t******* send the object to the CLIENT");
 
 			}
 			catch (EOFException eof) {
