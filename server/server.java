@@ -49,9 +49,14 @@ public class server {
 
 			try {
 				int m = 1000;
-
-				oosToClient.writeObject(bank.searchByAccountNumber("A1234"));
-				oosToClient.flush();
+				while(true)
+				{
+					System.out.println(oisFromClient.readObject());
+					oosToClient.flush();
+				}
+				
+				//oosToClient.writeObject(bank.searchByAccountNumber("A1234"));
+				
 
 				// display the result to the screen of the server
 				System.out.println("\t******* send the object to the CLIENT");
@@ -59,7 +64,10 @@ public class server {
 			}
 			catch (EOFException eof) {
 				System.out.println("*** THE client has terminated connection ***");
+				eof.printStackTrace();
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 

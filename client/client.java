@@ -21,26 +21,29 @@ public class client {
 				.toString();
 		System.out.println(s2);// welcome message
 		System.out.print("Enter your name: ");
-
+		String username = scanner.nextLine();
+		
 		Socket clientSocket; // TCP/IP socket
 		ObjectInputStream oisFromServer;
 		ObjectOutputStream oosToServer;
 		try {
 			clientSocket = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(args[0]));
-
+			oosToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			System.out.println("Connected to " + clientSocket.getInetAddress().getHostName());
-
-			String username = scanner.nextLine();
 			
+			oisFromServer = new ObjectInputStream(clientSocket.getInputStream());
+			oosToServer = new ObjectOutputStream(clientSocket.getOutputStream());
+			
+			oosToServer.writeObject( username ); 
+            oosToServer.flush();
 			do {
 				System.out.print("Enter a command (0, 1 or 2): ");
 				userSelction = scanner.nextInt();
-
+				
+				
 			} while (userSelction != 0);
 
-			oisFromServer = new ObjectInputStream(clientSocket.getInputStream());
 
-			oosToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 
 			oosToServer.close();
 			oisFromServer.close();
