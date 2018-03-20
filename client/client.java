@@ -5,8 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 import accountType.Account;
 import java.io.ObjectInputStream;
 import java.net.InetAddress;
@@ -65,14 +63,13 @@ public class client {
 				case 0:
 					System.out.println("Thank You!");
 					break;
-
+					
 				default:
 					System.out.println("Invalid Input!");
 					break;
 				}
-
 			} while (userSelction != 0);
-
+			
 			dataOut.close();
 			dataIn.close();
 			recvObj.close();
@@ -87,10 +84,15 @@ public class client {
 
 	private static void printAccounts(Account[] accList) {
 		int count = 0;
-		for (Account account : accList) {
-			System.out.println((++count) + ". " + account);
+		try {
+			for (Account account : accList) {
+				System.out.println((++count) + ". " + account);
 
+			}
+		}catch (Exception e) {
+			System.out.print("Invalid Input!");
 		}
+		
 
 	}
 }
