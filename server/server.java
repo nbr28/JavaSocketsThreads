@@ -14,7 +14,7 @@ import BankClasses.BankApp;
 public class server {
 	private static Bank bank;
 	private static ServerSocket serverSocket;
-	private static ArrayList<Thread> clients;
+//	private static ArrayList<Thread> clients;
 
 	public static void main(String[] args) {
 		bank = new Bank();
@@ -33,7 +33,7 @@ public class server {
 					System.out.println("listening for a connection...");
 					Thread t = new serverThread(serverSocket.accept(), bank);
 					t.start();
-					clients.add(t);
+//					clients.add(t);
 				}
 			} finally {
 				System.out.println("*** the server is going to stop running ***");
