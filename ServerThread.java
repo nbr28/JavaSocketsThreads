@@ -1,4 +1,4 @@
-package server;
+
 
 /**
  * Task : design a thread server object
@@ -22,7 +22,7 @@ import accountType.*;
  * @author yoosuk
  *
  */
-public class serverThread extends Thread {
+public class ServerThread extends Thread {
 	private Socket conn;
 	private Bank bank;
 	private String user;
@@ -41,7 +41,7 @@ public class serverThread extends Thread {
 	 * @param sock
 	 * @param inputBank
 	 */
-	public serverThread(Socket sock, Bank inputBank) {
+	public ServerThread(Socket sock, Bank inputBank) {
 		try {
 			conn = sock;
 			bank = inputBank;

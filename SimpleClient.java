@@ -1,4 +1,4 @@
-package client;
+
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class client {
+public class SimpleClient {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);

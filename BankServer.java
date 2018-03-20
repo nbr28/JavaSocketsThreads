@@ -1,16 +1,17 @@
-package server;
+
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
+
 import BankClasses.Bank;
 import BankClasses.BankApp;
 
-public class server {
+public class BankServer {
 	private Bank bank;
 	private ServerSocket serverSocket;
 
-	public server(int port) throws IOException {
+	public BankServer(int port) throws IOException {
 		bank = new Bank("R&S Bank");
 		serverSocket = new ServerSocket(port);
 	}
@@ -26,7 +27,7 @@ public class server {
 				/* listen for new connection forever, pushing each thread into ArrayList */
 				for (;;) {
 					System.out.println("listening for a connection...");
-					Thread t = new serverThread(serverSocket.accept(), bank);
+					Thread t = new ServerThread(serverSocket.accept(), bank);
 					t.start();
 				}
 			} finally {
@@ -45,7 +46,7 @@ public class server {
 	public static void main(String[] args) {
 		/* create new Server */
 		try {
-			server serv = new server(Integer.parseInt(args[0]));
+			BankServer serv = new BankServer(Integer.parseInt(args[0]));
 			serv.startServer();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
