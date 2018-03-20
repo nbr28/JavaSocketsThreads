@@ -90,8 +90,8 @@ public class serverThread extends Thread {
 					System.out.println("DEBUG: Beginning of the loop");
 					send.writeUTF(menu0);
 					System.out.println("DEBUG: menu0 sent");
-//					send.writeUTF("==Menu\n1. List all accounts\n2. Filter by balance\n0. Quit\n Enter a command (0, 1 or 2): ");
 					send.flush();
+					System.out.println("DEBUG: getting recv");
 					reply = recv.readInt();
 					System.out.println("+ command received: " + reply);
 					switch(reply){

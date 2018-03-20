@@ -39,7 +39,7 @@ public class client {
 				userSelction = scanner.nextInt();
 				scanner.nextLine();//flush out \n
 				
-				dataOut.writeUTF(String.valueOf(userSelction));
+				dataOut.writeInt(userSelction);
 				dataOut.flush();
 
 				switch (userSelction) {
