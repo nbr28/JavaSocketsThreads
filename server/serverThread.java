@@ -64,7 +64,10 @@ public class serverThread extends Thread {
 	/**
 	 * Is this thread running or not running?
 	 * 
-	 * The idea is to allow a separate thread to check if this thread is active and if not, remove it from the ArrayList.  Due to synchronization issues with ArrayList, this has not been implemented yet.
+	 * The idea is to allow a separate thread to check if this thread is active and
+	 * if not, remove it from the ArrayList. Due to synchronization issues with
+	 * ArrayList, this has not been implemented yet.
+	 * 
 	 * @return boolean
 	 */
 	public boolean running() {
@@ -81,7 +84,7 @@ public class serverThread extends Thread {
 		state = 1; /* reset state to initial */
 		sendObj.writeObject(result);
 		sendObj.flush();
-		send.writeChars(menu0);
+		send.writeUTF(menu0);
 	}
 
 	/**
@@ -92,18 +95,18 @@ public class serverThread extends Thread {
 			try { /* this allows finally to close sockets */
 				/* send and log welcome message */
 				System.out.println("A BankServer instance is running! " + now.format(format));
-				send.writeChars("Welcome to the Bank of R&S! " + now.format(format));
+				send.writeUTF("Welcome to the Bank of R&S! \nPlease enter your name:" + now.format(format));
 				send.flush();
 				/* receive user name information */
-				user = (String)recv.readUTF();
+				user = (String) recv.readUTF();
 				System.out.println("+ name received: " + user);
 
 				/* send initial command choice request */
-				send.writeChars(menu0);
-
+				send.writeUTF(menu0);
+				send.flush();
 				/* process reply in a loop */
 				while (reply != "0") {
-					reply = (String) recv.readUTF();
+					reply = Integer.toString(recv.readInt());
 					if (reply != "0") {
 						if (state == 1) { /* initial state */
 							state = Integer.parseInt(reply);
