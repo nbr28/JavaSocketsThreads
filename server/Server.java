@@ -6,20 +6,20 @@ import java.net.ServerSocket;
 import BankClasses.Bank;
 import BankClasses.BankApp;
 
-public class Server {
-	private static Bank bank;
-	private static ServerSocket serverSocket;
+public class server {
+	private Bank bank;
+	private ServerSocket serverSocket;
 
-	public static void main(String[] args) {
+	public server(int port) throws IOException {
 		bank = new Bank("R&S Bank");
+		serverSocket = new ServerSocket(port);
+	}
+
+	public void startServer() {
 		BankApp.loadBank(bank);// load some accounts
 
 		try {
 			try { /* allows finally to close socket */
-				
-				/* create ServerSocket object */
-				serverSocket = new ServerSocket(Integer.parseInt(args[0]));
-
 				/* log initialization */
 				System.out.println("*** " + bank.getName() + " Server System ***");
 
@@ -38,6 +38,17 @@ public class Server {
 			eof.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+	}
+
+	public static void main(String[] args) {
+		/* create new Server */
+		try {
+			server serv = new server(Integer.parseInt(args[0]));
+			serv.startServer();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 
 	} // end main
