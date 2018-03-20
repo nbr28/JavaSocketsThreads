@@ -53,7 +53,6 @@ public class server {
 				{
 					String string=(String)oisFromClient.readObject();
 					System.out.println(string);
-					
 				}
 				
 				//oosToClient.writeObject(bank.searchByAccountNumber("A1234"));
