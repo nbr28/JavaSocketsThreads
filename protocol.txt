@@ -1,0 +1,21 @@
+upon connection:
+
+(SERVER creates a thread with the new socket)
+
+SERVER to CLIENT DATA : Bank.name, timestamp
+CLIENT to SERVER DATA : name string to match to account.name
+
+SERVER to CLIENT DATA : initial command request
+
+loop until choice is 0
+	CLIENT to SERVER DATA : command choice
+	SERVER to CLIENT DATA : return type ( 1 for further command in the form of DATA , 2 for return of OBJECT ) /* zero is ommitted to lessen any confusion with the termination signal */
+	if response is 1
+		SERVER to CLIENT DATA : further options
+	else if response is 2
+		SERVER to CLIENT OBJECT : return ArrayList<Account>
+		SERVER to CLIENT DATA : initial command request
+	end if
+end loop
+
+(BOTH close and clean socket and finish thread/process)
