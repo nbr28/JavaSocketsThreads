@@ -31,10 +31,9 @@ public class serverThread extends Thread {
 	private ObjectOutputStream sendObj;
 	private LocalDateTime now = LocalDateTime.now();
 	private DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a MMM d yyyy");
-	private int state;
 	private String menu0 = "==Menu\n1. List all accounts\n2. Filter by balance\n0. Quit\n Enter a command (0, 1 or 2): ";
 	private String menu1 = "==Filter by Balance\nWhat is the balance? ";
-	private String reply = "";
+	private int reply = 0;
 
 	/**
 	 * Constructor
@@ -75,14 +74,13 @@ public class serverThread extends Thread {
 	}
 
 	/**
-	 * Sends the result and reinitializes the state
+	 * Sends the result 
 	 * 
 	 * @param result
 	 * @throws IOException
 	 */
 	private void sendResult(ArrayList<Account> result) throws IOException {
-		state = 1; /* reset state to initial */
-		sendObj.writeObject(result);
+		sendObj.writeObject(result.toArray(new Account[0]));
 		sendObj.flush();
 		send.writeUTF(menu0);
 	}
@@ -101,23 +99,40 @@ public class serverThread extends Thread {
 				user = (String) recv.readUTF();
 				System.out.println("+ name received: " + user);
 
-				/* send initial command choice request */
-				send.writeUTF(menu0);
-				send.flush();
 				/* process reply in a loop */
-				while (reply != "0") {
-					reply = Integer.toString(recv.readInt());
-					if (reply != "0") {
-						if (state == 1) { /* initial state */
-							state = Integer.parseInt(reply);
-							if (state == 1) { /* choice 1 */
-								sendResult(bank.getAcc());
-							} else if (state == 2) { /* choice 2 */
-								send.writeChars(menu1);
+				while(reply != 0){
+					/* send initial command choice request */
+					send.writeUTF(menu0);
+					send.flush();
+					reply = (int)recv.readInt();
+					System.out.println("+ command received: " + reply);
+					switch(reply){
+						case 1: /* send all account */
+							sendResult(bank.getAcc());
+							break;
+						case 2: /* send search result based on balance */
+							ArrayList<Account> result = new ArrayList<Account>();
+							send.writeUTF(menu1);
+							send.flush();
+							/* receive query for balance */
+							String balance = (String) recv.readUTF();
+							/* log balance received */
+							System.out.println("+ balance received: " + balance);
+							/* sendResult() the return of the searchByBalance(BigDecimal) using the query */
+							try{
+								result = bank.searchByBalance(new BigDecimal(balance) );
+							}catch(NumberFormatException e) { 
+								System.out.println("ERROR: received balance is an invalid entry");
+							}finally {
+								sendResult(result);
 							}
-						} else if (state == 2) { /* continued from last loop for menu 2 */
-							sendResult(bank.searchByBalance(new BigDecimal(reply)));
-						}
+
+							break;
+						case 0:
+							System.out.println("+ User " + user + " signing out at " + LocalDateTime.now().format(format) );
+							break;
+						default:
+							throw Exception("Invalid reply received");
 					}
 				}
 			} finally {
@@ -131,7 +146,9 @@ public class serverThread extends Thread {
 			System.out.println("ERROR: Line disconnected");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		} catch (Exception e) {
+			System.out.println("ERROR: " + e.getMessage() );
+		}finally {
 			state = 0; /* inactive state */
 		}
 	}
