@@ -42,7 +42,6 @@ public class serverThread extends Thread {
 	 * @param inputBank
 	 */
 	public serverThread(Socket sock, Bank inputBank) {
-		state = 1; /* set state to initial */
 		try {
 			conn = sock;
 			bank = inputBank;
@@ -58,19 +57,6 @@ public class serverThread extends Thread {
 			sendObj = null;
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Is this thread running or not running?
-	 * 
-	 * The idea is to allow a separate thread to check if this thread is active and
-	 * if not, remove it from the ArrayList. Due to synchronization issues with
-	 * ArrayList, this has not been implemented yet.
-	 * 
-	 * @return boolean
-	 */
-	public boolean running() {
-		return state != 0;
 	}
 
 	/**
@@ -132,7 +118,7 @@ public class serverThread extends Thread {
 							System.out.println("+ User " + user + " signing out at " + LocalDateTime.now().format(format) );
 							break;
 						default:
-							throw Exception("Invalid reply received");
+							throw new Exception("Invalid reply received");
 					}
 				}
 			} finally {
@@ -148,8 +134,6 @@ public class serverThread extends Thread {
 			e.printStackTrace();
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage() );
-		}finally {
-			state = 0; /* inactive state */
 		}
 	}
 }
