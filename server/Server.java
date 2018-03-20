@@ -6,21 +6,22 @@ import java.net.ServerSocket;
 import BankClasses.Bank;
 import BankClasses.BankApp;
 
-public class server {
+public class Server {
 	private static Bank bank;
 	private static ServerSocket serverSocket;
 
 	public static void main(String[] args) {
-		bank = new Bank();
+		bank = new Bank("R&S Bank");
 		BankApp.loadBank(bank);// load some accounts
 
 		try {
 			try { /* allows finally to close socket */
+				
 				/* create ServerSocket object */
 				serverSocket = new ServerSocket(Integer.parseInt(args[0]));
 
 				/* log initialization */
-				System.out.println("*** R&S Bank Server System ***");
+				System.out.println("*** " + bank.getName() + " Server System ***");
 
 				/* listen for new connection forever, pushing each thread into ArrayList */
 				for (;;) {
