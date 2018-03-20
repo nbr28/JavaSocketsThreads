@@ -56,6 +56,7 @@ public class client {
 					}
 					break;
 				case 2:
+					oosToServer.writeInt(userSelction);
 					System.out.println("# question from the server: " + (String) oisFromServer.readObject());
 					oosToServer.writeObject(new BigDecimal(scanner.nextLine()));//send big decimal
 					ArrayList<Account> accList = (ArrayList<Account>)oisFromServer.readObject();
@@ -67,6 +68,7 @@ public class client {
 					}
 					break;
 				case 0:
+					oosToServer.writeInt(userSelction);
 					System.out.println("Thank You!");
 					break;
 					

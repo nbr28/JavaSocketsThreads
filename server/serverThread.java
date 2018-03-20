@@ -95,7 +95,7 @@ public class serverThread extends Thread {
 				send.writeChars("Welcome to the Bank of R&S! " + now.format(format));
 				send.flush();
 				/* receive user name information */
-				user = recv.readUTF();
+				user =(String) recv.readUTF();
 				System.out.println("+ name received: " + user);
 
 				/* send initial command choice request */
@@ -103,7 +103,7 @@ public class serverThread extends Thread {
 
 				/* process reply in a loop */
 				while (reply != "0") {
-					reply = (String) recv.readUTF();
+					reply = Integer.toString( recv.readInt());
 					if (reply != "0") {
 						if (state == 1) { /* initial state */
 							state = Integer.parseInt(reply);

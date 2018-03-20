@@ -23,7 +23,7 @@ public class server {
 		try {
 			try { /* allows finally to close socket */
 				/* create ServerSocket object */
-				serverSocket = new ServerSocket(8000);
+				serverSocket = new ServerSocket(Integer.parseInt(args[0]));
 
 				/* log initialization */
 				System.out.println("*** R&S Bank Server System ***");
