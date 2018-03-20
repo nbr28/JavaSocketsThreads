@@ -33,7 +33,7 @@ public class serverThread extends Thread {
 	private DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a MMM d yyyy");
 	private String menu0 = "==Menu\n1. List all accounts\n2. Filter by balance\n0. Quit\n Enter a command (0, 1 or 2): ";
 	private String menu1 = "==Filter by Balance\nWhat is the balance? ";
-	private int reply = 0;
+	private int reply = -1;
 
 	/**
 	 * Constructor
@@ -68,7 +68,6 @@ public class serverThread extends Thread {
 	private void sendResult(ArrayList<Account> result) throws IOException {
 		sendObj.writeObject(result.toArray(new Account[0]));
 		sendObj.flush();
-		send.writeUTF(menu0);
 	}
 
 	/**
@@ -82,15 +81,18 @@ public class serverThread extends Thread {
 				send.writeUTF("Welcome to the Bank of R&S! " + now.format(format) + "\nPlease enter your name: ");
 				send.flush();
 				/* receive user name information */
-				user = (String) recv.readUTF();
+				user = recv.readUTF();
 				System.out.println("+ name received: " + user);
 
 				/* process reply in a loop */
 				while(reply != 0){
 					/* send initial command choice request */
+					System.out.println("DEBUG: Beginning of the loop");
 					send.writeUTF(menu0);
+					System.out.println("DEBUG: menu0 sent");
+//					send.writeUTF("==Menu\n1. List all accounts\n2. Filter by balance\n0. Quit\n Enter a command (0, 1 or 2): ");
 					send.flush();
-					reply = (int)recv.readInt();
+					reply = recv.readInt();
 					System.out.println("+ command received: " + reply);
 					switch(reply){
 						case 1: /* send all account */
@@ -101,7 +103,7 @@ public class serverThread extends Thread {
 							send.writeUTF(menu1);
 							send.flush();
 							/* receive query for balance */
-							String balance = (String) recv.readUTF();
+							String balance = recv.readUTF();
 							/* log balance received */
 							System.out.println("+ balance received: " + balance);
 							/* sendResult() the return of the searchByBalance(BigDecimal) using the query */
