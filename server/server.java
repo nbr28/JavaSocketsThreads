@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import BankClasses.Bank;
 import BankClasses.BankApp;
 
-public class Server {
+public class server {
 	private static Bank bank;
 	private static ServerSocket serverSocket;
 

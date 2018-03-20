@@ -34,7 +34,7 @@ public class client {
 			//main loop
 			do {
 				
-				bankMessage = (String)dataIn.readUTF();
+				bankMessage = dataIn.readUTF();
 				System.out.println(bankMessage);
 				userSelction = scanner.nextInt();
 				scanner.nextLine();//flush out \n
