@@ -64,7 +64,10 @@ public class serverThread extends Thread {
 	/**
 	 * Is this thread running or not running?
 	 * 
-	 * The idea is to allow a separate thread to check if this thread is active and if not, remove it from the ArrayList.  Due to synchronization issues with ArrayList, this has not been implemented yet.
+	 * The idea is to allow a separate thread to check if this thread is active and
+	 * if not, remove it from the ArrayList. Due to synchronization issues with
+	 * ArrayList, this has not been implemented yet.
+	 * 
 	 * @return boolean
 	 */
 	public boolean running() {
@@ -95,7 +98,7 @@ public class serverThread extends Thread {
 				send.writeChars("Welcome to the Bank of R&S! " + now.format(format));
 				send.flush();
 				/* receive user name information */
-				user =(String) recv.readUTF();
+				user = (String) recv.readUTF();
 				System.out.println("+ name received: " + user);
 
 				/* send initial command choice request */
@@ -103,7 +106,7 @@ public class serverThread extends Thread {
 
 				/* process reply in a loop */
 				while (reply != "0") {
-					reply = Integer.toString( recv.readInt());
+					reply = Integer.toString(recv.readInt());
 					if (reply != "0") {
 						if (state == 1) { /* initial state */
 							state = Integer.parseInt(reply);
