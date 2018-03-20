@@ -22,6 +22,7 @@ public class server {
 
 		try {
 			try { /* allows finally to close socket */
+				
 				/* create ServerSocket object */
 				serverSocket = new ServerSocket(8000);
 
