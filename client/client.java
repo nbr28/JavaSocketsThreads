@@ -45,6 +45,7 @@ public class client {
 
 				switch (userSelction) {
 				case 1:
+					oosToServer.writeInt(userSelction);
 					Account acc[] = (Account[]) oisFromServer.readObject();
 					System.out
 							.println("information about ALL accounts received, displayed LINE BY LINE as seen below:");
