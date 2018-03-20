@@ -31,9 +31,11 @@ public class client {
 			String username = scanner.nextLine();
 			sendData.writeUTF(username);
 			sendData.flush();
-
+			
+			//main loop
 			do {
-				bankMessage = dataIn.readUTF();
+				
+				bankMessage = (String)dataIn.readUTF();
 				System.out.println(bankMessage);
 				userSelction = scanner.nextInt();
 
@@ -42,14 +44,12 @@ public class client {
 
 				switch (userSelction) {
 				case 1:
-					sendData.writeInt(userSelction);
 					ArrayList<Account> accList = (ArrayList<Account>) recvObj.readObject();
 					System.out
 							.println("information about ALL accounts received, displayed LINE BY LINE as seen below:");
 					printAccounts(accList);
 					break;
 				case 2:
-					sendData.writeInt(userSelction);
 					System.out.println("# question from the server: " + dataIn.readUTF());
 					//sed.writeObject(new BigDecimal(scanner.nextLine()));// send big decimal
 					//ArrayList<Account> accList1 = (ArrayList<Account>) recvObj.readObject();
@@ -57,7 +57,6 @@ public class client {
 
 					break;
 				case 0:
-					sendData.writeInt(userSelction);
 					System.out.println("Thank You!");
 					break;
 
