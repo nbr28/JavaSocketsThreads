@@ -87,11 +87,11 @@ public class serverThread extends Thread {
 				/* process reply in a loop */
 				while(reply != 0){
 					/* send initial command choice request */
-					System.out.println("DEBUG: Beginning of the loop");
+					
 					send.writeUTF(menu0);
-					System.out.println("DEBUG: menu0 sent");
+				
 					send.flush();
-					System.out.println("DEBUG: getting recv");
+					
 					reply = recv.readInt();
 					System.out.println("+ command received: " + reply);
 					switch(reply){
@@ -133,7 +133,7 @@ public class serverThread extends Thread {
 		} catch (EOFException eof) {
 			System.out.println("ERROR: Line disconnected");
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace();			
 		} catch (Exception e) {
 			System.out.println("ERROR: " + e.getMessage() );
 		}
