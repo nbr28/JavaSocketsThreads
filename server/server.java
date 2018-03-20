@@ -33,7 +33,6 @@ public class server {
 					System.out.println("listening for a connection...");
 					Thread t = new serverThread(serverSocket.accept(), bank);
 					t.start();
-					clients.add(t);
 				}
 			} finally {
 				System.out.println("*** the server is going to stop running ***");

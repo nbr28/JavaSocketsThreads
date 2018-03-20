@@ -9,8 +9,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 public class client {
 
@@ -18,13 +17,7 @@ public class client {
 		Scanner scanner = new Scanner(System.in);
 		int userSelction = -1;
 
-		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a MMM d yyyy");
-		String s2 = new StringBuilder("Welcome to the Bank of Natan Ross and Tony Sim! ").append(now.format(format))
-				.toString();
-		System.out.println(s2);// welcome message
-		System.out.print("Enter your name: ");
-		String username = scanner.nextLine();
+
 
 		Socket clientSocket; // TCP/IP socket
 
@@ -33,11 +26,17 @@ public class client {
 			ObjectInputStream oisFromServer = new ObjectInputStream(clientSocket.getInputStream());
 			ObjectOutputStream oosToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			System.out.println("Connected to " + clientSocket.getInetAddress().getHostName());
-
+            
+			String bankMessage=oisFromServer.readUTF();
+			System.out.println(bankMessage);
+			
+			String username = scanner.nextLine();
 			oosToServer.writeObject(username);
 			oosToServer.flush();
+			
 			do {
-				System.out.print("Enter a command (0, 1 or 2): ");
+				bankMessage=(String)oisFromServer.readUTF();
+				System.out.println(bankMessage);
 				userSelction = scanner.nextInt();
 
 				oosToServer.writeObject(String.valueOf(userSelction));
@@ -82,7 +81,7 @@ public class client {
 			oosToServer.close();
 			oisFromServer.close();
 			clientSocket.close();
-		} catch (IOException | ClassNotFoundException ioe) {
+		} catch (IOException | ClassNotFoundException   ioe) {
 			ioe.printStackTrace();
 		}
 
