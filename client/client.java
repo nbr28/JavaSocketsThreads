@@ -85,8 +85,7 @@ public class client {
 		int count = 0;
 		try {
 			for (Account account : accList) {
-				System.out.println((++count) + ". " + account);
-
+				System.out.println((++count) +".   "+ account.getAccountNumber()+", "+account.getFullName()+", $"+account.getAccountBalance());
 			}
 		}catch (Exception e) {
 			System.out.print("Invalid Input!");

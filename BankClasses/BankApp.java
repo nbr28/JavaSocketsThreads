@@ -17,12 +17,12 @@ public class BankApp extends Bank {
 //			new Savings("Mary Ryan","C9012",new BigDecimal(8000),0.15)
 //			};
 	//Individual Accounts if needed for testing
-	private static GIC D1234 = new GIC( "John Doe","D1234",new BigDecimal(6000),1.5, 2);
-	private static Checquing E5678 = new Checquing("John Doe","E5678",new BigDecimal(15000),new BigDecimal(0.75));
-	private static Savings F9801 = new Savings("John Doe","F9801",new BigDecimal(8000),0.15);
-	private static GIC A1234 = new GIC("Mary Ryan","A1234",new BigDecimal(15000),1.5,4);
-	private static Checquing B5678 = new Checquing("Mary Ryan","B5678",new BigDecimal(15000),new BigDecimal(0.75));
-	private static Savings C9012 = new Savings("Mary Ryan","C9012",new BigDecimal(8000),0.15);
+	private static GIC D1234 = new GIC( "John Doe","D1234",new BigDecimal("6000.00"),1.5, 2);
+	private static Checquing E5678 = new Checquing("John Doe","E5678",new BigDecimal("15000.00"),new BigDecimal(0.75));
+	private static Savings F9801 = new Savings("John Doe","F9801",new BigDecimal("8000.00"),0.15);
+	private static GIC A1234 = new GIC("Mary Ryan","A1234",new BigDecimal("15000.00"),1.5,4);
+	private static Checquing B5678 = new Checquing("Mary Ryan","B5678",new BigDecimal("15000.00"),new BigDecimal(0.75));
+	private static Savings C9012 = new Savings("Mary Ryan","C9012",new BigDecimal("8000.00"),0.15);
 			
 	
 	/**

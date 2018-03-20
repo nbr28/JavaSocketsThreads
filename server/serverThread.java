@@ -109,6 +109,7 @@ public class serverThread extends Thread {
 							/* sendResult() the return of the searchByBalance(BigDecimal) using the query */
 							try{
 								result = bank.searchByBalance(new BigDecimal(balance) );
+								System.out.println("+ balance received: In Big Decimal " + new BigDecimal(balance));
 							}catch(NumberFormatException e) { 
 								System.out.println("ERROR: received balance is an invalid entry");
 							}finally {
