@@ -3,8 +3,6 @@ package server;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.ArrayList;
-
 import BankClasses.Bank;
 import BankClasses.BankApp;
 

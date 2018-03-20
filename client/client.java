@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import accountType.Account;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.Socket;
 

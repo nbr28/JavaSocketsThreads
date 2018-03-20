@@ -95,7 +95,7 @@ public class serverThread extends Thread {
 			try { /* this allows finally to close sockets */
 				/* send and log welcome message */
 				System.out.println("A BankServer instance is running! " + now.format(format));
-				send.writeChars("Welcome to the Bank of R&S! " + now.format(format));
+				send.writeChars("Welcome to the Bank of R&S! \nPlease enter your name:" + now.format(format));
 				send.flush();
 				/* receive user name information */
 				user = (String) recv.readUTF();
@@ -103,7 +103,7 @@ public class serverThread extends Thread {
 
 				/* send initial command choice request */
 				send.writeChars(menu0);
-
+				send.flush();
 				/* process reply in a loop */
 				while (reply != "0") {
 					reply = Integer.toString(recv.readInt());
