@@ -1,4 +1,5 @@
 package accountType;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -11,11 +12,14 @@ import accountType.NegitveAmountException;
  * ID : ysim2 nross9
  * Date:
  */
-public class Account {
+public class Account implements Serializable{
 	private String m_name;
 	private String m_accountNum;
 	private BigDecimal m_startingBalance;
 	private BigDecimal m_balance;
+	
+	private static final long serialVersionUID = 1234567L;
+	
 	
 	
 	/**

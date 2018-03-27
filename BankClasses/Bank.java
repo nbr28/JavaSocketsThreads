@@ -7,6 +7,7 @@
 package BankClasses;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 
@@ -101,6 +102,7 @@ public class Bank {
 	 */
 	public ArrayList<Account> searchByBalance(BigDecimal balance)
 	{
+		balance.setScale(2,RoundingMode.HALF_UP);
 		ArrayList<Account> result = new ArrayList<Account>();
 		for(int i = 0; i < m_acc.size() ; i++)
 			if(balance.equals(m_acc.get(i).getAccountBalance()) ) result.add(m_acc.get(i));
